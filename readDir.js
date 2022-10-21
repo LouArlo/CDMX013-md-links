@@ -1,10 +1,7 @@
 const fs = require('fs');
 
 const directory_name = process.argv[2];
-// const dm = directory_name[0];
 
-// const directory_name = '../PRUEBAS';
-// Open the directory
 const openedDir = directory_name;
 
 let filesLeft = true;
