@@ -1,14 +1,47 @@
 const fs = require('fs');
+const path = require('path');
 
-const directory_name = process.argv[2];
+const directoryName = process.argv[2];
+const routerDir = directoryName;
+//console.log(routerDir);
 
-const openedDir = directory_name;
+if (routerDir==undefined) {
+  console.log("----------ruta invalida---------");
+  return;
+} 
 
-let filesLeft = true;
-//while (filesLeft) {
-  // Read a file as fs.Dirent object
-const fileDirent = fs.readdirSync(openedDir);
-console.log(fileDirent);
+// función recursiva
+const gettingDir = (anyDir) => {
+  let arrayLinks = [];
+  const fileDirent = fs.readdirSync(anyDir, {withFileTypes: true});
+
+  //barrido de directprios
+  fileDirent.forEach((file) => {
+    //formando nueva ruta
+    const newPath = path.join(anyDir, file.name);
+    //validando si es directorio
+    if (file.isDirectory()) {
+      // proceso de recursividad
+      arrayLinks = [...arrayLinks, ...gettingDir(newPath)];
+    } else {
+      //llenando array de files con .md´s
+      let en = path.extname(newPath);
+      if (en === '.md') {
+        //console.log(" en array ",en);
+        arrayLinks.push(newPath); 
+          }
+    }
+  });
+  return arrayLinks;
+  
+  }
+  //consologuear el array de lnks obtenido
+  console.log(gettingDir(routerDir));
+
+  // filtrado de .md
+  
+  
+
 
   // If readSync() does not return null
   // print its filename
