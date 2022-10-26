@@ -3,49 +3,7 @@
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
-  },
-  "description": "validación de links",
-  "keywords": ["links", "validate links", "read .md files", "filter links of files"],
-  "homepage": "https://github.com/LouArlo/CDMX013-md-links",
-    "bugs":
-  {
-    /*"url" : "https://github.com/LouArlo/CDMX013-md-links/...",*/
-    "email" : "lulu.arlo1306@gmail.com.com"
-  },
-    "license": "MIT",
-    "author": {
-      "name" : "Lourdes Arellano López",
-      "email" : "lulu.arlo1306@gmail.com",
-      "url" : "https://github.com/LouArlo"
-    },
-    "main": "md-links", //por investigar si es el nombre require por el que se llamará
-    "bin": {
-              "md-links": "./cli.js" //idem main
-           },
-    /*"repository": {
-         "type": "git",
-         "url": "https://github.com/npm/cli.git"
-     }*/       
-    
-    "scripts": {
-    "eslint": "eslint --ext .js src/ test/",
-    "pretest": "npm run eslint && npm run htmlhint",
-    "test": "jest --verbose --coverage --env=jsdom",
-    "open-coverage-report": "opener ./coverage/lcov-report/index.html",
-    "start": "serve src/",
-    "deploy": "gh-pages -d src"
-  },
-  "dependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
-    "babel-jest": "^27.0.1",
-    "eslint": "^8.3.0",
-    "gh-pages": "^3.1.0",
-    "htmlhint": "^1.0.0",
-    "jest": "^27.0.1",
-    "opener": "^1.5.1",
-    "serve": "^14.0.1"
+
   }
   
 }
-
