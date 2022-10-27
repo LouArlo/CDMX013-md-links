@@ -1,13 +1,8 @@
 const fs = require('fs');
-const path = require('path');
-const { extFile } = require('./extFile');
-//const pathInput = process.argv.slice(2);
+
 const readFile = (pathInput) => {
   let arrayLinks = [];
-  //let arrayLinksFileMd = [];
-  //let en = extFile(pathInput);
-  //console.log(en);
-  //if (en === '.md') {
+  
     let auxarrayLinks = [];
     let auxLink = "";
 
@@ -29,13 +24,9 @@ const readFile = (pathInput) => {
       auxarrayLinks.push(object);
 
     })
-    //return arrayLinksFileMd;
+    
     return auxarrayLinks;
-  //} else {
-    //return ('------------- El archivo no es .md-------------');
-  //};
-
-
+  
 
 }
 
