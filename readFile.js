@@ -4,20 +4,38 @@ const { extFile } = require('./extFile');
 //const pathInput = process.argv.slice(2);
 const readFile = (pathInput) => {
   let arrayLinks = [];
-  //let en = path.extname(pathInput[0]);
-  let en = extFile(pathInput[0]);
-  console.log(en);
+  //let arrayLinksFileMd = [];
+  //let en = extFile(pathInput);
+  //console.log(en);
+  //if (en === '.md') {
+    let auxarrayLinks = [];
+    let auxLink = "";
 
-  if (en === '.md') {
-     arrayLinks = fs.readFileSync(pathInput[0], 'utf8').match(/\[(.+)\]\((https?:\/\/.+)\)/gi);
-    
-      return arrayLinks;
-    }
-    
+    arrayLinks = fs.readFileSync(pathInput, 'utf8').match(/\[(.+)\]\((https?:\/\/.+)\)/gi);
 
-   else {
-    return ('------------- El archivo no es .md-------------');
-  }
+    arrayLinks.forEach((element) => {
+      //console.log(element);
+      auxLink = element.replace("](", "*");
+      auxLink = auxLink.replace("[", "");
+      auxLink = auxLink.replace(")", "");
+      //console.log(auxLink);
+      let begin = auxLink.indexOf('*');
+      let object = {
+        file: pathInput,
+        href: auxLink.slice(begin + 1),
+        text: auxLink.slice(0, begin),
+      };
+
+      auxarrayLinks.push(object);
+
+    })
+    //return arrayLinksFileMd;
+    return auxarrayLinks;
+  //} else {
+    //return ('------------- El archivo no es .md-------------');
+  //};
+
+
 
 }
 
