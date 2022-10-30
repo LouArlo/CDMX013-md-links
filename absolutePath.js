@@ -1,8 +1,8 @@
 const path = require ('path');
 
 const absolutePath = (pathInput) => {
-    if (!path.isAbsolute(pathInput[0])){
-        return path.resolve(pathInput[0]);
+    if (!path.isAbsolute(pathInput)) {
+        return path.resolve(pathInput);
     } else {
         return pathInput;
     }

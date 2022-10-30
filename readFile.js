@@ -16,16 +16,18 @@ const readFile = (pathInput) => {
       //console.log(auxLink);
       let begin = auxLink.indexOf('*');
       let object = {
-        file: pathInput,
         href: auxLink.slice(begin + 1),
         text: auxLink.slice(0, begin),
+        file: pathInput,
       };
 
       auxarrayLinks.push(object);
 
     })
-    
-    return auxarrayLinks;
+    //validar http
+    return new Promise (resolve => {
+      resolve(auxarrayLinks);
+    }) 
   
 
 }
