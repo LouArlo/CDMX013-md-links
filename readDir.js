@@ -48,17 +48,9 @@ const readDir = (routerDir) => {
         const promesaDeArchivo = readFile(element)
 
         arrayPromises.push(promesaDeArchivo)
-
-        //[promesa promesa promesa promesa]
-        //[resultad, resultado, resutlado]
-        //[[],[],[]]
-
+    
         //como convertir un array que contiene arrays en un unico array
         // console.log( [[1,[1,23]],[9,7],[1,2]].flat(1))
-
-        //arrayLinksFileMd = [arrayLinksFileMd, auxarrayLinks];
-        // arrayLinksFileMd= [arrayLinksFileMd, auxarrayLinks];
-        //console.log(auxarrayLinks);
       })
 
       const resultadoPromesas = Promise.all(arrayPromises).then((resultado=>{
@@ -74,9 +66,6 @@ const readDir = (routerDir) => {
       })
 
   }) 
-
-  //console.log(arrayLinksFileMd)
-  //return arrayLinksFileMd;
 
 }
   module.exports = {
