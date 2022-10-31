@@ -28,7 +28,6 @@ const readFile = (pathInput) => {
     return new Promise (resolve => {
       resolve(auxarrayLinks);
     }) 
-  
 
 }
 
