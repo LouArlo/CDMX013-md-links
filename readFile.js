@@ -17,7 +17,7 @@ const readFile = (pathInput) => {
       let begin = auxLink.indexOf('*');
       let object = {
         href: auxLink.slice(begin + 1),
-        text: auxLink.slice(0, begin),
+        text: (auxLink.slice(0, begin)).slice(0,49),
         file: pathInput,
       };
 
