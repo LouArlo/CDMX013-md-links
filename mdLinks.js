@@ -5,51 +5,47 @@ const { readFile } = require('./readFile');
 const { readDir } = require('./readDir');
 const { extFile } = require('./extFile');
 const { validation } = require('./validation');
+const { stats } = require('./stats');
 const [, , ...args] = process.argv
 //const fetch = require('node-fetch');
 
 const mdLinks = (routeP, validateP, statsP) => {
   let route = routeP;
   let validate = validateP;
-  let stats = statsP;
+  let statsOp = statsP;
 
   let pathAbsolute = absolutePath(route);
   //console.log(" ruta absoluta ==> ",pathAbsolute,route);
 
   let statsPath = fs.lstatSync(pathAbsolute);
+  let canSet=[];
   let auxLinks = [];
   // directory
   if (statsPath.isDirectory() == true) {
-    if (!validate && !stats) {
+
+    if (!validate && !statsOp) {
       readDir(pathAbsolute).then(linksAll => {
         console.log(linksAll);
       })      
     }
-    if (validate && !stats) {
+
+    if (validate && !statsOp) {
       //console.log("status de directorio ", statsPath.isDirectory)
       readDir(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {
         console.log(linksTodos);
       }))
     }
-    if (stats && !validate) {
-      readDir(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {
-        let fileSize = new Set();
-        //let broken = linksTodos.map(linksTodos.message =='fail')
-        fileSize.add(linksTodos);
-        console.log("Total: ", linksTodos.length);
-        console.log("Unique: ", fileSize.size); 
-      }))
+
+    if (statsOp && !validate) {
+     
+      stats(pathAbsolute,"D");
       
     }
-    if (stats && validate) {
-      readDir(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {
-        console.log(linksTodos);
-        let fileSize = new Set();
-        //let broken = linksTodos.map(linksTodos.message =='fail')
-        fileSize.add(linksTodos);
-        console.log("Total: ", linksTodos.length);
-        console.log("Unique: ", fileSize.size); 
+
+    if (statsOp && validate) {
+      readDir(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {       
       }))
+      stats(pathAbsolute,"D");
     }
   }
   else {
@@ -57,54 +53,42 @@ const mdLinks = (routeP, validateP, statsP) => {
     let en = extFile(pathAbsolute);
 
     if (en === '.md') {
-      if (!validate && !stats) {
+      
+      if (!validate && !statsOp) {
         readFile(pathAbsolute).then(linksAll => {
           console.log(linksAll);
         });
       }
-      if (validate && !stats) {
+
+      if (validate && !statsOp) {
         readFile(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {
           console.log(linksTodos);
         }));
       }
-      if (stats && !validate) {
-        readFile(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {
-          //console.log("sólo links", linksTodos.flat(1));
-          let fileSize = new Set();
-          //let broken = linksTodos.map(linksTodos.message =='fail')
-          fileSize.add(linksTodos);
-          console.log("Total: ", linksTodos.length);
-          console.log("Unique: ", fileSize.size);
-          //console.log("Broken: ", broken.length)
-        }));             
+
+      if (statsOp && !validate) {     
+          stats(pathAbsolute,"F");            
       }
-      if (stats && validate) {
-        readFile(pathAbsolute).then(linksAll => validation(linksAll).then(linksTodos => {
+
+      if (statsOp && validate) {
+        readFile(pathAbsolute, canSet).then(linksAll => validation(linksAll).then(linksTodos => {
           console.log(linksTodos);
-          let fileSize = new Set();
-          //let broken = linksTodos.map(linksTodos.message =='fail')
-          fileSize.add(linksTodos);
-          console.log("Total: ", linksTodos.length);
-          console.log("Unique: ", fileSize.size);
-          //console.log("Broken: ", broken.length)
-        }));
-        console.log("en construcción todo file");
+        })); 
+
+        stats(pathAbsolute,'F');       
       }
     }
     else {
       console.log(" :( error, no es .md")
     }
   }
-  // }
-  //  else {
-  //   console.log(" :( error, no existe path ", route)
-  // } 
+  
 }
 
 // ------- cli
 let route = args[0];
 let validate = false;
-let stats = false;
+let statsOp = false;
 if (fs.existsSync(args[0]) == true) {
   //console.log(" ruta válida ", args[0])  
   //console.log("cli ",args[0], args[1], args[2]);
@@ -112,9 +96,9 @@ if (fs.existsSync(args[0]) == true) {
     validate = true;
   }
   if (args.includes('--stats')) {
-    stats = true
+    statsOp = true
   }
-  mdLinks(route, validate, stats);
+  mdLinks(route, validate, statsOp);
 
 } else {
   console.log(" :( error, no existe path ")

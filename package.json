@@ -7,6 +7,7 @@
   "dependencies": {
     "@laboratoria/curriculum-parser": "github:Laboratoria/course-parser",
     "chalk": "^5.1.2",
+    "jest": "^29.2.2",
     "meow": "^11.0.0",
     "node-fetch": "^2.6.7"
   },
@@ -16,6 +17,8 @@
     "test": "test"
   },
   "scripts": {
+    "eslint": "eslint --ext .js test/",
+    "test": "jest --coverage",
     "start": "node index.js",
     "md-links": "node cli.js"
   },
@@ -25,6 +28,7 @@
   },
   "author": "Lourdes Arellano",
   "license": "ISC",
+  "type": "commonjs",
   "bin": {
     "md-links": "cli.js"
   },
@@ -32,5 +36,10 @@
     "url": "https://github.com/LouArlo/CDMX013-md-links/issues"
   },
   "homepage": "https://github.com/LouArlo/CDMX013-md-links#readme",
-  "keywords": []
+  "keywords": [
+    "cli-app",
+    "mdlinks",
+    "get-links",
+    "validate-links"
+  ]
 }

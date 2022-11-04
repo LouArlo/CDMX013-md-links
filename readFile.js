@@ -1,4 +1,6 @@
 const fs = require('fs');
+const { getLinks } = require('./getLinks');
+
 
 const readFile = (pathInput) => {
   let arrayLinks = [];
@@ -6,9 +8,12 @@ const readFile = (pathInput) => {
     let auxarrayLinks = [];
     let auxLink = "";
 
-    arrayLinks = fs.readFileSync(pathInput, 'utf8').match(/\[(.+)\]\((https?:\/\/.+)\)/gi);
-
-    arrayLinks.forEach((element) => {
+    //arrayLinks = fs.readFileSync(pathInput, 'utf8').match(/\[(.+)\]\((https?:\/\/.+)\)/gi);
+    getLinks(pathInput);
+    
+    //----
+    //arrayLinks.forEach((element) => {
+      getLinks(pathInput).forEach((element) => {
       //console.log(element);
       auxLink = element.replace("](", "*");
       auxLink = auxLink.replace("[", "");

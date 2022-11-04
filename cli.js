@@ -5,7 +5,7 @@ const [,, ...args] = process.argv
 
 let route =args[0];
 let validate = false;
-let stats = false;
+let statsOp = false;
 if (fs.existsSync(args[0]) == true) {
     //console.log(" ruta válida ", args[0])  
     console.log("cli ",args[0], args[1], args[2]);
@@ -13,7 +13,7 @@ if (fs.existsSync(args[0]) == true) {
         validate=true;
     }
     if (args.includes('--stats')) {
-        stats=true
+        statsOp=true
     }
       
  } else {
@@ -21,4 +21,4 @@ if (fs.existsSync(args[0]) == true) {
  }
  //console.log("parametros ", route, validate, stats);
 
- mdLinks(route, validate, stats);
+ mdLinks(route, validate, statsOp);
