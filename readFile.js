@@ -1,14 +1,41 @@
 const fs = require('fs');
-const path = require('path');
+const { getLinks } = require('./getLinks');
 
-const pathInput = process.argv.slice(2);
 
-// console.log(pathInput);
-en = path.extname(pathInput[0]);
-//console.log(en);
-if (en === '.md') {
-  bf = fs.readFileSync(pathInput[0], 'utf8').split('\n');
-  console.log(bf);
-} else {
-  console.log('------------- El archivo no es .md-------------');
+const readFile = (pathInput) => {
+  let arrayLinks = [];
+  
+    let auxarrayLinks = [];
+    let auxLink = "";
+
+    //arrayLinks = fs.readFileSync(pathInput, 'utf8').match(/\[(.+)\]\((https?:\/\/.+)\)/gi);
+    getLinks(pathInput);
+    
+    //----
+    //arrayLinks.forEach((element) => {
+      getLinks(pathInput).forEach((element) => {
+      //console.log(element);
+      auxLink = element.replace("](", "*");
+      auxLink = auxLink.replace("[", "");
+      auxLink = auxLink.replace(")", "");
+      //console.log(auxLink);
+      let begin = auxLink.indexOf('*');
+      let object = {
+        href: auxLink.slice(begin + 1),
+        text: (auxLink.slice(0, begin)).slice(0,49),
+        file: pathInput,
+      };
+
+      auxarrayLinks.push(object);
+
+    })
+    //validar http
+    return new Promise (resolve => {
+      resolve(auxarrayLinks);
+    }) 
+
+}
+
+module.exports = {
+  readFile
 }
