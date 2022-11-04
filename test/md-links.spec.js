@@ -1,10 +1,10 @@
-const mdLinks = require('../');
+const {extFile} = require ('../extFile');
 
-
-describe('mdLinks', () => {
-
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
-
-});
+describe('testear extFile', () => {
+  test ('extFile es una función?', () => {
+    expect ( typeof extFile).toBe('function')
+  })
+  test ('extrae la extención', () => {
+    expect(extFile('C:\Users\Laboratoria\Desktop\LABORATORIA\CDMX013-md-links\test\mdtest\test.md')).toBe('.md')
+  })
+} )
